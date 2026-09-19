@@ -1,0 +1,66 @@
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 560px;
+  margin: 24px auto;
+  padding: 44px 28px;
+  border: 1px dashed #ccd3dc;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  text-align: center;
+}
+.state-box__icon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 4px;
+  border-radius: 16px;
+  background: var(--orange-100);
+  color: var(--orange);
+  font-size: 1.7rem;
+}
+.state-box h3 {
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+.state-box p {
+  max-width: 34em;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.skeleton-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  padding-bottom: 18px;
+}
+.skeleton-card__img,
+.skeleton-card__line {
+  background: linear-gradient(90deg, #e9edf2 25%, #f4f6f9 50%, #e9edf2 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.3s infinite linear;
+}
+.skeleton-card__img {
+  aspect-ratio: 16 / 10;
+  margin-bottom: 16px;
+}
+.skeleton-card__line {
+  height: 14px;
+  margin: 0 18px 10px;
+  border-radius: 6px;
+}
+.skeleton-card__line--short {
+  width: 55%;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}

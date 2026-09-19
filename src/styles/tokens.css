@@ -1,0 +1,28 @@
+/* Design tokens — colors sampled from the approved design, fonts per language. */
+:root {
+  /* brand */
+  --navy-950: #011a2e; /* hero, footer, dark bands */
+  --navy-900: #021f35; /* service cards */
+  --ink: #0b1b33; /* headings on light backgrounds */
+  --orange: #fd7021;
+  --orange-600: #e8600f;
+  --orange-100: #fde9d6;
+
+  /* surfaces & text */
+  --bg: #f5f7f9;
+  --bg-alt: #f2f5f8;
+  --surface: #ffffff;
+  --text: #2c405c;
+  --muted: #5b6b7f;
+  --border: #e2e6ec;
+
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  --header-h: 92px;
+
+  /* fonts — Arabic: Cairo · English: Poppins · Hebrew: Heebo (loaded in index.html) */
+  --font-ar: 'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif;
+  --font-en: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  --font-he: 'Heebo', 'Segoe UI', Arial, sans-serif;
+}

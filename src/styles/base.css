@@ -1,0 +1,147 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+html[dir='rtl'] {
+  --content-dir: rtl;
+}
+html[dir='ltr'] {
+  --content-dir: ltr;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ar);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+html[lang='en'] body {
+  font-family: var(--font-en);
+  line-height: 1.6;
+}
+html[lang='he'] body {
+  font-family: var(--font-he);
+}
+
+h1, h2, h3, h4, p, ul, figure {
+  margin: 0;
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* ---------- layout helpers ---------- */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 28px;
+}
+.wide {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4.6vw, 64px);
+}
+
+/*
+ * The design lays sections out left-to-right in every language (e.g. the first service card is
+ * always on the left) while the TEXT inside each block follows the language direction.
+ * .ltr-frame  -> the container flows left-to-right
+ * its children -> keep the page direction (rtl for ar/he, ltr for en)
+ */
+.ltr-frame {
+  direction: ltr;
+}
+.ltr-frame > * {
+  direction: var(--content-dir);
+}
+.ltr-frame > .ltr-frame {
+  direction: ltr;
+}
+
+/* ---------- eyebrow (orange label with dash) ---------- */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: var(--orange);
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.eyebrow__dash {
+  display: block;
+  flex: none;
+  width: 24px;
+  height: 2px;
+  background: var(--orange);
+}
+html[dir='ltr'] .eyebrow__dash {
+  order: -1;
+}
+.eyebrow--plain {
+  font-size: 0.85rem;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 12px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.9rem;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-inline: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

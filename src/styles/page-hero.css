@@ -1,0 +1,50 @@
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(44px, 5vw, 76px);
+  background: var(--navy-950);
+  color: #fff;
+}
+.page-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.page-hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(1, 26, 46, 0.7) 0%, rgba(1, 26, 46, 0.88) 55%, rgba(1, 26, 46, 0.96) 100%);
+}
+html[dir='ltr'] .page-hero__shade {
+  background: linear-gradient(270deg, rgba(1, 26, 46, 0.7) 0%, rgba(1, 26, 46, 0.88) 55%, rgba(1, 26, 46, 0.96) 100%);
+}
+.page-hero__title {
+  margin-bottom: 12px;
+  font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.3;
+}
+.page-hero__desc {
+  max-width: 42em;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.02rem;
+  line-height: 1.9;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+.chips li {
+  padding: 5px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.82rem;
+}

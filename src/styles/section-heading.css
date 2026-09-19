@@ -1,0 +1,17 @@
+.section-heading__title {
+  max-width: 19em;
+  color: var(--ink);
+  font-size: clamp(1.35rem, 2.05vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.5;
+}
+html[lang='he'] .section-heading__title {
+  max-width: 24em;
+}
+html[lang='en'] .section-heading__title {
+  max-width: 24em;
+  line-height: 1.35;
+}
+.section-heading--light .section-heading__title {
+  color: #fff;
+}

@@ -1,0 +1,123 @@
+.why {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(280px, 21.5vw, 400px);
+  overflow: hidden;
+  background: var(--navy-950);
+  color: #fff;
+}
+
+/* photo on the left with the diagonal cut + orange stripe from the design */
+.why__media {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 44%;
+}
+/* the clip-path lives on the wrapper so that zooming the photo does not move the diagonal edge */
+.why__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(79% - 7px) 0, calc(100% - 7px) 100%, 0 100%);
+}
+.why__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% 35%;
+  transform: scale(1.18);
+  transform-origin: 52% 78%;
+}
+.why__stripe {
+  position: absolute;
+  inset: 0;
+  background: var(--orange);
+  clip-path: polygon(calc(79% - 7px) 0, 79% 0, 100% 100%, calc(100% - 7px) 100%);
+}
+
+.why__content {
+  position: relative;
+  width: 100%;
+  padding-block: 40px;
+  padding-left: 44%;
+  padding-right: max(28px, calc((100% - 1280px) / 2 + 28px));
+}
+.why__panel {
+  max-width: 740px;
+  margin-left: auto;
+  padding-left: 28px;
+}
+
+.why__items {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 28px;
+}
+.why__item {
+  padding: 4px 18px;
+  text-align: center;
+}
+.why__item + .why__item {
+  border-left: 1px solid rgba(253, 112, 33, 0.55);
+}
+.why__icon {
+  margin-bottom: 12px;
+  color: var(--orange);
+  font-size: 2.3rem;
+  stroke-width: 1.6;
+}
+.why__item h3 {
+  margin-bottom: 6px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.why__item p {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .why {
+    display: block;
+    min-height: 0;
+  }
+  .why__media {
+    position: relative;
+    width: 100%;
+    height: 220px;
+  }
+  .why__photo {
+    clip-path: none;
+  }
+  .why__photo img {
+    transform: none;
+  }
+  .why__stripe {
+    top: auto;
+    height: 5px;
+    clip-path: none;
+  }
+  .why__content {
+    padding: 34px 20px 40px;
+  }
+  .why__panel {
+    max-width: none;
+    padding-left: 0;
+  }
+  .why__items {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .why__item {
+    padding: 20px 8px;
+  }
+  .why__item + .why__item {
+    border-left: 0;
+    border-top: 1px solid rgba(253, 112, 33, 0.45);
+  }
+}

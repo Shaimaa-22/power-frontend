@@ -1,0 +1,141 @@
+{
+  "brand": {
+    "name": "Power",
+    "tagline": "ENGINEERING & ELECTRICAL SOLUTIONS"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Our Services",
+    "about": "About Us",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "eyebrow": "POWER ENGINEERING & ELECTRICAL SOLUTIONS",
+    "title": "Engineering and electrical solutions for more efficient projects.",
+    "description": "We provide solutions in industrial and residential electrical work, solar energy, the Internet of Things, and other engineering services that meet the needs of projects and businesses.",
+    "cta_primary": "Explore Our Services",
+    "cta_secondary": "Contact Us",
+    "title_accent": "for more efficient projects."
+  },
+  "services": {
+    "eyebrow": "Our Services",
+    "title": "Integrated engineering solutions that meet the needs of industrial, residential, and technical projects.",
+    "learn_more": "Learn More",
+    "items": {
+      "industrial_electricity": {
+        "title": "Industrial Electricity",
+        "description": "Electrical solutions, control systems, and automation for factories, facilities, and industrial projects.",
+        "tags": [
+          "Electrical Panels",
+          "Control",
+          "Automation",
+          "Maintenance"
+        ]
+      },
+      "residential_electricity": {
+        "title": "Residential Electricity",
+        "description": "Electrical solutions for homes and buildings, from wiring and lighting to smart systems.",
+        "tags": [
+          "Wiring",
+          "Lighting",
+          "Smart Home",
+          "Maintenance"
+        ]
+      },
+      "solar_energy": {
+        "title": "Solar Energy",
+        "description": "Solar energy solutions for projects and homes, from design to installation and after-sales services.",
+        "tags": [
+          "Design",
+          "Installation",
+          "Maintenance",
+          "Energy Solutions"
+        ]
+      },
+      "iot_smart_solutions": {
+        "title": "IoT & Smart Solutions",
+        "description": "Smart solutions that support monitoring, control, and the connection of devices and systems.",
+        "tags": [
+          "IoT",
+          "Smart Systems",
+          "Monitoring",
+          "Automation"
+        ]
+      }
+    }
+  },
+  "why_us": {
+    "eyebrow": "Why Power?",
+    "title": "Practical solutions that start with understanding your needs.",
+    "items": {
+      "support": {
+        "title": "Support & Follow-up",
+        "description": "Follow-up and maintenance services tailored to the nature of the solution."
+      },
+      "organized_execution": {
+        "title": "Organized Execution",
+        "description": "Attention to detail and work quality throughout the implementation stages."
+      },
+      "project_based_solutions": {
+        "title": "Project-Based Solutions",
+        "description": "We understand the nature of your needs and propose the right solution."
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "About Power?",
+    "title": "Your partner in electrical and engineering solutions.",
+    "description": "Power is a company specialized in providing engineering and electrical solutions covering the industrial and residential sectors, alongside solar energy, the Internet of Things, and related technical solutions.",
+    "cta": "Learn More About Us"
+  },
+  "cta_section": {
+    "title": "Do you have a project or an inquiry?",
+    "subtitle": "Contact us to discuss your needs.",
+    "description": "The Power team is ready to help you find the right solution for your project.",
+    "cta_whatsapp": "Contact via WhatsApp",
+    "cta_info": "Contact Information"
+  },
+  "footer": {
+    "tagline": "Integrated engineering and electrical solutions.",
+    "quick_links_title": "Quick Links",
+    "links": {
+      "home": "Home",
+      "services": "Our Services",
+      "about": "About Us",
+      "contact": "Contact Us"
+    },
+    "contact_title": "Contact Us",
+    "phone_1": "+972 52 550 2758",
+    "phone_2": "+972 59 853 5359",
+    "email": "info@power.ps",
+    "location": "Palestine",
+    "copyright": "© 2025 Power. All rights reserved."
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Try again",
+    "back_to_services": "Back to services",
+    "close": "Close",
+    "language": "Language",
+    "menu": "Menu",
+    "whatsapp_message": "Hello, I'd like to inquire about your services.",
+    "not_found_title": "Page not found",
+    "not_found_text": "The page you're looking for doesn't exist or has been moved.",
+    "go_home": "Back to Home"
+  },
+  "service_page": {
+    "all": "All",
+    "categories": "Categories",
+    "empty_title": "Content coming soon",
+    "empty_text": "There are no items in this section yet. Contact us to learn more about this service.",
+    "empty_category": "No items in this category yet.",
+    "error_title": "Couldn't load the content",
+    "error_text": "Something went wrong while connecting to the server. Please try again."
+  },
+  "contact_page": {
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "location": "Location"
+  }
+}
