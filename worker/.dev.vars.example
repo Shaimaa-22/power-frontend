@@ -1,0 +1,14 @@
+# Copy to .dev.vars for LOCAL use only. This file contains no credentials.
+# Generate an independent random secret of at least 32 characters.
+JWT_SECRET=
+# Copy these from a restricted Backblaze B2 application key (bucket read/write/delete).
+B2_KEY_ID=
+B2_APPLICATION_KEY=
+# Non-secret settings normally come from wrangler.jsonc; uncomment to override locally.
+# B2_ENDPOINT=
+# B2_REGION=
+# B2_BUCKET_NAME=
+# STORAGE_DRIVER=b2
+# PBKDF2_ITERATIONS=100000
+# DB and AUTH_RATE_LIMITER are bindings, not strings. IMAGES is only needed with R2.
+# Production credentials belong in Worker Secrets, never in vars or Git.

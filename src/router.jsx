@@ -4,6 +4,7 @@
  * Paths support ':param' segments and a '*' catch-all.
  */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { safeDecode } from './lib/url';
 
 const RouterContext = createContext(null);
 const ParamsContext = createContext({});
@@ -40,7 +41,7 @@ export function Router({ children }) {
   useEffect(() => {
     if (navCount === 0) return;
     if (location.hash) {
-      const el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      const el = document.getElementById(safeDecode(location.hash.slice(1)) ?? location.hash.slice(1));
       if (el) {
         el.scrollIntoView();
         return;
@@ -65,7 +66,11 @@ function matchPath(pattern, pathname) {
   if (a.length !== b.length) return null;
   const params = {};
   for (let i = 0; i < a.length; i += 1) {
-    if (a[i].startsWith(':')) params[a[i].slice(1)] = decodeURIComponent(b[i]);
+    if (a[i].startsWith(':')) {
+      const decoded = safeDecode(b[i]);
+      if (decoded === null) return null;
+      params[a[i].slice(1)] = decoded;
+    }
     else if (a[i] !== b[i]) return null;
   }
   return params;

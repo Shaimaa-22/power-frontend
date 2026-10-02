@@ -7,16 +7,44 @@ import '../styles/items.css';
 export default function ItemModal({ item, categoryName, onClose }) {
   const { pick, t } = useI18n();
   const closeRef = useRef(null);
+  const dialogRef = useRef(null);
 
   useEffect(() => {
     const previouslyFocused = document.activeElement;
-    const onKey = (e) => e.key === 'Escape' && onClose();
+    const focusableElements = () => Array.from(dialogRef.current?.querySelectorAll(
+      'a[href], button, input, select, textarea, [tabindex]'
+    ) ?? []).filter(element => element.tabIndex >= 0 && !element.matches(':disabled') && element.getClientRects().length > 0);
+    const keepFocusInside = (e) => {
+      if (dialogRef.current && !dialogRef.current.contains(e.target)) {
+        (focusableElements()[0] || dialogRef.current).focus();
+      }
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+      } else if (e.key === 'Tab') {
+        const elements = focusableElements();
+        const first = elements[0];
+        const last = elements[elements.length - 1];
+        if (!first) {
+          e.preventDefault();
+          dialogRef.current?.focus();
+        } else if (!elements.includes(document.activeElement) ||
+          (e.shiftKey ? document.activeElement === first : document.activeElement === last)) {
+          e.preventDefault();
+          (e.shiftKey ? last : first).focus();
+        }
+      }
+    };
     document.addEventListener('keydown', onKey);
+    document.addEventListener('focusin', keepFocusInside);
     const { overflow } = document.body.style;
     document.body.style.overflow = 'hidden';
     closeRef.current?.focus();
     return () => {
       document.removeEventListener('keydown', onKey);
+      document.removeEventListener('focusin', keepFocusInside);
       document.body.style.overflow = overflow;
       previouslyFocused?.focus?.();
     };
@@ -27,7 +55,7 @@ export default function ItemModal({ item, categoryName, onClose }) {
 
   return (
     <div className="modal" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal__dialog" role="dialog" aria-modal="true" aria-label={title}>
+      <div ref={dialogRef} tabIndex={-1} className="modal__dialog" role="dialog" aria-modal="true" aria-label={title}>
         <button ref={closeRef} type="button" className="modal__close" onClick={onClose} aria-label={t('common.close')}>
           <LuX aria-hidden="true" />
         </button>

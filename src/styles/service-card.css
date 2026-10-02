@@ -122,3 +122,67 @@ html[lang='en'] .service-card__tags {
   justify-content: flex-start;
   gap: 4px 14px;
 }
+
+@media (max-width: 640px) {
+  .service-card {
+    height: 430px; /* نفس الارتفاع لكل الكروت */
+  }
+
+  .service-card__top {
+    flex-shrink: 0;
+  }
+
+  .service-card__media {
+    aspect-ratio: auto;
+    height: 180px; /* نفس ارتفاع الصورة بكل الكروت */
+  }
+
+  .service-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 26px 14px 12px;
+    min-height: 0;
+  }
+
+  .service-card__title {
+    font-size: 1rem;
+
+    /* حتى العنوان الطويل ما يغيّر التصميم */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .service-card__desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    margin-bottom: 12px;
+
+    /* حد أقصى 3 أسطر */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .service-card__more {
+    margin-top: auto;
+  }
+
+  .service-card__icon {
+    width: 36px;
+    height: 36px;
+    bottom: -16px;
+    inset-inline-start: 14px;
+    font-size: 1.15rem;
+  }
+
+  .service-card__tags {
+    flex-shrink: 0;
+    margin-inline: 14px;
+    padding-block: 10px 12px;
+    font-size: 0.72rem;
+  }
+}

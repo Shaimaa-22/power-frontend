@@ -1,0 +1,33 @@
+{
+  "name": "power-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Power website API on Cloudflare Workers (Hono + D1 + B2/R2)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "node scripts/require-explicit-target.mjs",
+    "deploy:preview": "wrangler deploy --config wrangler.preview.jsonc --name power-preview-20260924",
+    "deploy:production": "wrangler deploy --config wrangler.jsonc --name power-api",
+    "db:init:local": "wrangler d1 execute power-db --local --file=./schema.sql",
+    "db:init:remote": "node scripts/require-explicit-target.mjs",
+    "seed-admin": "node scripts/seed-admin.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:runtime": "node --test tests/runtime.test.mjs",
+    "db:migrate:local": "wrangler d1 migrations apply power-db --local",
+    "db:migrate:remote": "node scripts/require-explicit-target.mjs",
+    "db:migrate:preview": "wrangler d1 migrations apply power-preview-20260924-db --remote --config wrangler.preview.jsonc",
+    "db:migrate:production": "wrangler d1 migrations apply power-db --remote --config wrangler.jsonc",
+    "deploy:check": "wrangler deploy --dry-run"
+  },
+  "dependencies": {
+    "aws4fetch": "^1.0.20",
+    "hono": "^4.6.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

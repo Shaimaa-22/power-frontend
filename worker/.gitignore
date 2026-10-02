@@ -1,0 +1,14 @@
+node_modules
+.wrangler
+.dev.vars
+.env
+.dev.vars.*
+.env.*
+!.dev.vars.example
+!.env.example
+.seed-admin-*.sql
+.test-output
+dist
+.seed-admin.tmp.sql
+
+outputs/

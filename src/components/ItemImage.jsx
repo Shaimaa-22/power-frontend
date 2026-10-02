@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LuImageOff } from 'react-icons/lu';
 import { api } from '../api/client';
 
@@ -6,6 +6,7 @@ import { api } from '../api/client';
 export default function ItemImage({ filename, alt = '', className = '', loading = 'lazy' }) {
   const [failed, setFailed] = useState(false);
   const src = api.imageUrl(filename);
+  useEffect(() => setFailed(false), [filename]);
 
   if (!src || failed) {
     return (

@@ -1,5 +1,14 @@
 node_modules
 dist
+dist-production
+dist-import-review
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
 .env
 .env.local
+.env.*
+!.env.example
+.wrangler
+.test-output
 .DS_Store

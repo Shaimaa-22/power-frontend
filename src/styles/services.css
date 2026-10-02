@@ -16,6 +16,20 @@
 }
 @media (max-width: 640px) {
   .services__grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(210px, 68vw, 260px);
+    align-items: start;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    padding: 4px 3px 18px;
+    scroll-padding-inline: 3px;
+    scrollbar-width: thin;
+  }
+  .services__grid > .service-card {
+    min-width: 0;
+    scroll-snap-align: start;
   }
 }

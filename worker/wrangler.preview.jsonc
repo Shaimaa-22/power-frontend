@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "power-preview-20260924",
+  "account_id": "588ae8d4d4314e13b85149c677a2eb85",
+  "main": "src/index.js",
+  "compatibility_date": "2025-09-01",
+  "workers_dev": true,
+  "assets": { "directory": "./public" },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "power-preview-20260924-db",
+    "database_id": "1f81c155-7bf6-4efa-8918-ac3311d40528",
+    "migrations_dir": "migrations"
+  }],
+  "ratelimits": [{
+    "name": "AUTH_RATE_LIMITER",
+    "namespace_id": "10051002",
+    "simple": { "limit": 10, "period": 60 }
+  }],
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "vars": {
+    "STORAGE_DRIVER": "b2",
+    "PBKDF2_ITERATIONS": "100000"
+  }
+  // Isolated preview. No B2 credentials/bucket: live image operations are unavailable.
+  // JWT_SECRET is independently generated and stored with Cloudflare Secrets.
+}

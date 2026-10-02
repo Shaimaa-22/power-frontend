@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة إدارة Power</title>
+
+<style>
+  :root {
+    --navy: #0B1B33;
+    --navy-light: #16284d;
+    --orange: #F5821F;
+    --orange-dim: #fde9d6;
+    --bg: #F5F6F8;
+    --surface: #FFFFFF;
+    --text: #1A2942;
+    --text-muted: #5B6B7F;
+    --border: #E2E5EA;
+    --danger: #D64545;
+    --danger-dim: #fbe4e4;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  /* ---------- Login screen ---------- */
+
+  #loginScreen {
+    position: fixed;
+    inset: 0;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .login-card {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 32px 28px;
+    width: 92%;
+    max-width: 360px;
+  }
+
+  .login-card h1 {
+    font-size: 20px;
+    margin: 0 0 4px;
+  }
+
+  .login-card .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 20px;
+  }
+
+  .login-error {
+    background: var(--danger-dim);
+    color: var(--danger);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    display: none;
+  }
+
+  /* ---------- Layout ---------- */
+
+  header.topbar {
+    background: var(--navy);
+    color: white;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  header.topbar .brand {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  header.topbar .sub {
+    font-size: 13px;
+    color: #a9b4c9;
+  }
+
+  header.topbar .spacer {
+    flex: 1;
+  }
+
+  header.topbar .account-email {
+    font-size: 13px;
+    color: #c3cbdb;
+  }
+
+  header.topbar button.link-btn {
+    background: none;
+    border: none;
+    color: #c3cbdb;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  nav.tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--navy);
+    padding: 0 32px;
+    overflow-x: auto;
+  }
+
+  nav.tabs button {
+    background: transparent;
+    border: none;
+    color: #c3cbdb;
+    padding: 14px 18px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+
+  nav.tabs button.active {
+    color: white;
+    border-bottom-color: var(--orange);
+  }
+
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 24px 0 14px;
+  }
+
+  .toolbar h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .toolbar h3 {
+    font-size: 16px;
+    margin: 0;
+    color: var(--text);
+  }
+
+  .btn {
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+  }
+
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-danger {
+    background: var(--danger-dim);
+    color: var(--danger);
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .btn-block {
+    width: 100%;
+  }
+
+  .category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .category-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 8px 7px 16px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .category-pill.active {
+    background: var(--orange-dim);
+    border-color: var(--orange);
+    color: #b35f13;
+  }
+
+  .category-pill .x {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .category-pill .x:hover {
+    background: var(--danger-dim);
+    color: var(--danger);
+  }
+
+  .empty-state {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .item-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .item-card .thumb {
+    width: 100%;
+    height: 130px;
+    background: #fff center/contain no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .item-card .body {
+    padding: 12px 14px;
+  }
+
+  .item-card h4 {
+    margin: 0 0 4px;
+    font-size: 14px;
+  }
+
+  .item-card p {
+    margin: 0 0 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .item-card .actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  dialog {
+    border: none;
+    border-radius: 14px;
+    padding: 0;
+    width: 92%;
+    max-width: 480px;
+  }
+
+  dialog::backdrop {
+    background: rgba(11, 27, 51, 0.5);
+  }
+
+  .dialog-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border);
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .dialog-body {
+    padding: 18px 22px;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .dialog-footer {
+    padding: 14px 22px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .field {
+    margin-bottom: 14px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+
+  .field input[type="text"],
+  .field input[type="email"],
+  .field input[type="password"],
+  .field textarea {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+
+  .lang-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .lang-row .field {
+    flex: 1;
+  }
+
+  #imagePreview {
+    width: 100%;
+    height: 120px;
+    border-radius: 8px;
+    border: 1px dashed var(--border);
+    background: #fff center/contain no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .admin-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .admin-row:last-child {
+    border-bottom: none;
+  }
+
+  .admin-row .you-tag {
+    font-size: 11px;
+    color: var(--orange);
+    margin-inline-start: 6px;
+  }
+
+  hr.section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 18px 0;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    z-index: 200;
+  }
+
+  .toast.show {
+    opacity: 1;
+  }
+
+  /* ---------- Excel import ---------- */
+
+  .toolbar-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .import-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0 0 12px;
+  }
+
+  .import-summary {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .import-table-wrap {
+    overflow: auto;
+    max-height: 340px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .import-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+    font-size: 12px;
+  }
+
+  .import-table th,
+  .import-table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: right;
+    vertical-align: middle;
+  }
+
+  .import-table th {
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    z-index: 1;
+  }
+
+  .import-table img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    display: block;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .import-error {
+    color: var(--danger);
+    font-weight: 600;
+  }
+
+  .import-ok {
+    color: #18794e;
+    font-weight: 600;
+  }
+
+  #importExcelDialog {
+    max-width: 1100px;
+  }
+
+  @media (max-width: 700px) {
+    header.topbar {
+      padding: 14px 16px;
+      flex-wrap: wrap;
+    }
+
+    nav.tabs {
+      padding: 0 12px;
+    }
+
+    main {
+      padding: 20px 14px 50px;
+    }
+
+    .toolbar {
+      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .lang-row {
+      display: block;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ============ Login screen ============ -->
+
+<div id="loginScreen">
+  <div class="login-card">
+
+    <h1>لوحة إدارة Power</h1>
+
+    <p class="sub">
+      سجلي دخول عشان تدخلي عالداشبورد
+    </p>
+
+    <div
+      class="login-error"
+      id="loginError">
+    </div>
+
+    <div class="field">
+      <label>الإيميل</label>
+      <input
+        type="email"
+        id="loginEmail">
+    </div>
+
+    <div class="field">
+      <label>الباسورد</label>
+      <input
+        type="password"
+        id="loginPassword">
+    </div>
+
+    <button
+      class="btn btn-primary btn-block"
+      id="loginBtn">
+      تسجيل الدخول
+    </button>
+
+  </div>
+</div>
+
+
+<!-- ============ Dashboard ============ -->
+
+<header class="topbar">
+
+  <span class="brand">
+    Power
+  </span>
+
+  <span class="sub">
+    لوحة إدارة المحتوى
+  </span>
+
+  <div class="spacer"></div>
+
+  <button
+    class="link-btn"
+    id="manageAdminsBtn">
+    إدارة الأدمنز
+  </button>
+
+  <button
+    class="link-btn"
+    id="changePasswordBtn">
+    تغيير كلمة المرور
+  </button>
+
+  <span
+    class="account-email"
+    id="accountEmail">
+  </span>
+
+  <button
+    class="link-btn"
+    id="logoutBtn">
+    تسجيل خروج
+  </button>
+
+</header>
+
+
+<nav
+  class="tabs"
+  id="serviceTabs">
+</nav>
+
+
+<main>
+
+  <!-- Service toolbar -->
+
+  <div class="toolbar">
+
+    <h2 id="serviceTitle">
+      التصنيفات
+    </h2>
+
+    <div class="toolbar-actions">
+
+      <button
+        class="btn btn-secondary"
+        id="importExcelBtn">
+        استيراد Excel
+      </button>
+
+      <button
+        class="btn btn-primary"
+        id="addCategoryBtn">
+        + إضافة تصنيف
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="category-tabs"
+    id="categoryTabs">
+  </div>
+
+
+  <!-- Items -->
+
+  <div
+    id="itemsSection"
+    style="display:none;">
+
+    <div class="toolbar">
+
+      <h3 id="categoryItemsTitle">
+        الأصناف
+      </h3>
+
+      <button
+        class="btn btn-primary"
+        id="addItemBtn">
+        + إضافة صنف
+      </button>
+
+    </div>
+
+    <div
+      class="items-grid"
+      id="itemsGrid">
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- ============ Category dialog ============ -->
+
+<dialog id="categoryDialog">
+
+  <form method="dialog">
+
+    <div
+      class="dialog-header"
+      id="categoryDialogTitle">
+      إضافة تصنيف
+    </div>
+
+    <div class="dialog-body">
+
+      <div class="field">
+        <label>الاسم بالعربي</label>
+        <input
+          type="text"
+          id="catNameAr">
+      </div>
+
+      <div class="field">
+        <label>الاسم بالإنجليزي</label>
+        <input
+          type="text"
+          id="catNameEn">
+      </div>
+
+      <div class="field">
+        <label>الاسم بالعبري</label>
+        <input
+          type="text"
+          id="catNameHe">
+      </div>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="categoryDialog.close()">
+        إلغاء
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="saveCategoryBtn">
+        حفظ
+      </button>
+
+    </div>
+
+  </form>
+
+</dialog>
+
+
+<!-- ============ Item dialog ============ -->
+
+<dialog id="itemDialog">
+
+  <form method="dialog">
+
+    <div
+      class="dialog-header"
+      id="itemDialogTitle">
+      إضافة صنف
+    </div>
+
+    <div class="dialog-body">
+
+      <div id="imagePreview">
+        بدون صورة
+      </div>
+
+      <div class="field">
+        <label>الصورة</label>
+        <input
+          type="file"
+          id="itemImage"
+          accept="image/*">
+      </div>
+
+      <div class="lang-row">
+
+        <div class="field">
+          <label>العنوان (عربي)</label>
+          <input
+            type="text"
+            id="titleAr">
+        </div>
+
+        <div class="field">
+          <label>العنوان (إنجليزي)</label>
+          <input
+            type="text"
+            id="titleEn">
+        </div>
+
+        <div class="field">
+          <label>العنوان (عبري)</label>
+          <input
+            type="text"
+            id="titleHe">
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label>الوصف (عربي)</label>
+        <textarea id="descAr"></textarea>
+      </div>
+
+      <div class="field">
+        <label>الوصف (إنجليزي)</label>
+        <textarea id="descEn"></textarea>
+      </div>
+
+      <div class="field">
+        <label>الوصف (عبري)</label>
+        <textarea id="descHe"></textarea>
+      </div>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="itemDialog.close()">
+        إلغاء
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="saveItemBtn">
+        حفظ
+      </button>
+
+    </div>
+
+  </form>
+
+</dialog>
+
+
+<!-- ============ Excel import dialog ============ -->
+
+<dialog id="importExcelDialog">
+
+  <form method="dialog">
+
+    <div class="dialog-header">
+      استيراد الأصناف من Excel
+    </div>
+
+    <div class="dialog-body">
+
+      <p class="import-note">
+        اختاري ملف Excel بصيغة XLSX أو XLS.
+        سيتم قراءة بيانات المنتجات والتصنيفات باللغات الثلاث،
+        وتوزيع كل منتج حسب عمود «الخدمة في الموقع» أو اسم الخدمة باللغات الثلاث أو service_slug،
+        وإنشاء التصنيفات داخل الخدمة المناسبة تلقائياً.
+        وسيحاول النظام أيضاً استخراج صور المنتجات المضمّنة داخل ملف XLSX
+        وربط كل صورة بصف المنتج الخاص بها.
+        راجعي المعاينة قبل الضغط على استيراد.
+      </p>
+
+      <div class="field">
+
+        <label>
+          ملف Excel
+        </label>
+
+        <input
+          type="file"
+          id="excelFile"
+          accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+
+      </div>
+
+      <div
+        id="importSummary"
+        class="import-summary"
+        style="display:none">
+      </div>
+
+      <div id="importPreview"></div>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        id="cancelImportBtn">
+        إلغاء
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="confirmImportBtn"
+        disabled>
+        استيراد
+      </button>
+
+    </div>
+
+  </form>
+
+</dialog>
+
+
+<!-- ============ Admins management dialog ============ -->
+
+<dialog id="adminsDialog">
+
+  <form method="dialog">
+
+    <div class="dialog-header">
+      إدارة الأدمنز
+    </div>
+
+    <div class="dialog-body">
+
+      <div id="adminsList"></div>
+
+      <hr class="section-divider">
+
+      <div class="field">
+
+        <label>
+          إيميل الأدمن الجديد
+        </label>
+
+        <input
+          type="email"
+          id="newAdminEmail">
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          الباسورد (15–128 خانة)
+        </label>
+
+        <input
+          type="password"
+          id="newAdminPassword"
+          minlength="15"
+          maxlength="128"
+          autocomplete="new-password">
+
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-primary btn-block"
+        id="addAdminBtn">
+        + إضافة أدمن
+      </button>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="adminsDialog.close()">
+        إغلاق
+      </button>
+
+    </div>
+
+  </form>
+
+</dialog>
+
+
+<!-- ============ Password dialog ============ -->
+
+<dialog id="passwordDialog">
+
+  <form method="dialog">
+
+    <div class="dialog-header">
+      تغيير كلمة المرور
+    </div>
+
+    <div class="dialog-body">
+
+      <div class="field">
+
+        <label>
+          كلمة المرور الحالية
+        </label>
+
+        <input
+          type="password"
+          id="currentPassword"
+          maxlength="128"
+          autocomplete="current-password">
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          كلمة المرور الجديدة (15–128 خانة)
+        </label>
+
+        <input
+          type="password"
+          id="newPassword"
+          minlength="15"
+          maxlength="128"
+          autocomplete="new-password">
+
+      </div>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button
+        class="btn btn-secondary">
+        إلغاء
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="savePasswordBtn">
+        حفظ وإبطال الجلسات
+      </button>
+
+    </div>
+
+  </form>
+
+</dialog>
+
+
+<!-- ============ Toast ============ -->
+
+<div
+  class="toast"
+  id="toast"
+  role="status">
+</div>
+
+
+<!--
+  SheetJS:
+  قراءة بيانات Excel
+-->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+<!--
+  JSZip:
+  استخراج الصور المضمّنة داخل XLSX
+-->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+<!--
+  Admin application
+-->
+<script
+  type="module"
+  src="/admin.js?v=20260929-images-3">
+</script>
+
+</body>
+</html>
